@@ -1,0 +1,2 @@
+# to check for linting errors.
+docker-compose run --rm app sh -c "flake8" 

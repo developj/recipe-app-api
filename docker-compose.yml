@@ -1,0 +1,26 @@
+version: '3.9'
+# Specifies the version of the Docker Compose file format being used.
+# '3.9' is one of the latest versions and ensures compatibility with modern features.
+
+services:
+  # The 'services' section defines all the containers that will be part of the application.
+  app:
+    # 'app' is the name of the service/container. This name is used as an identifier within the Docker Compose file.
+    build:
+      # 'build' specifies that the container should be built from a Dockerfile located in the current directory.
+      context: .
+      # 'context' sets the build context to the current directory (.). This is where Docker will look for the Dockerfile and other files.
+      args:
+        - DEV=true
+        # 'args' allows you to pass build-time arguments to the Dockerfile. Here, the variable 'DEV' is set to 'true' for the build process.
+    ports:
+      - "8000:8000"
+      # Maps port 8000 on the host to port 8000 inside the container.
+      # This makes the application accessible via localhost:8000 on the host machine.
+    volumes:
+      - ./app:/app
+      # Mounts the local './app' directory to '/app' inside the container.
+      # This enables code changes on the host to reflect instantly inside the container, often useful in development.
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+      
